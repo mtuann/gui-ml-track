@@ -1,0 +1,14 @@
+# config.yaml
+
+backend:
+  host: localhost
+  port: 5000
+
+frontend:
+  host: localhost
+  port: 8501
+
+database:
+  host: localhost
+  port: 6379
+  db: 0

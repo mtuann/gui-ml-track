@@ -1,0 +1,4 @@
+Flask==2.0.2
+streamlit==1.7.0
+PyYAML==6.0
+redis==3.5.3
