@@ -16,6 +16,8 @@ This is GUI Web Application for Machine Learning Experiments tracking and manage
 ## Introduction
 
 This is a simple web application for managing machine learning experiments. It allows users to define hyperparameters for a machine learning model and run multiple jobs with different hyperparameters. The application displays the progress of currently running jobs and the results of all finished jobs. The experiments can be sorted by a pre-defined metric (e.g. accuracy, run time) for ease of comparison. The application also allows users to resume the UI and add new jobs.
+<!-- % adding a figure 'demo.png' here -->
+![demo](demo.png)
 
 ## Installation
 To install the application, follow these steps:
