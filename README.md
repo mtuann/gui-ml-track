@@ -1,13 +1,17 @@
 This is GUI Web Application for Machine Learning Experiments tracking and management
 
 # Table of Contents
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Architecture](#architecture)
-5. [Development](#development)
-6. [Contributing](#contributing)
-7. [License](#license)
+- [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Architecture](#architecture)
+    - [Backend](#backend)
+    - [Frontend](#frontend)
+    - [Worker](#worker)
+    - [Database](#database)
+  - [Development](#development)
+  - [Contributing](#contributing)
 
 ## Introduction
 
@@ -19,6 +23,7 @@ To install the application, follow these steps:
 git clone https://github.com/mtuann/gui-ml-track.git
 cd gui-ml
 pip install -r requirements.txt
+streamlit run frontend.py
 ```
 
 ## Usage
