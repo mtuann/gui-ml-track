@@ -5,7 +5,7 @@ from torchvision import datasets, transforms
 import sys
 import time
 import tqdm
-
+from datetime import datetime
 
 # Define the neural network architecture
 class CNN(nn.Module):
@@ -44,19 +44,19 @@ test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=1024, shuffle
 model = CNN()
 
 # Define loss function and optimizer
-criterion = nn.CrossEntropyLoss()
-
-hyper_params = {
-    "optimizer": "adam",
-    "learning_rate": 0.001,
-    "num_epochs": 5
-}
 
 
-def get_training_data(train_params):
-    
+# hyper_params = {
+#     "optimizer": "adam",
+#     "learning_rate": 0.001,
+#     "num_epochs": 5
+# }
+
+
+def training_and_update(train_params, rdb, rdb_item):
+    print(f"Training with hyperparameters: {train_params}")
     lr = train_params["learning_rate"]
-    optimizer = train_params["optimizer"]
+    optimizer = train_params["optimizer"].lower()
     num_epochs = train_params["num_epochs"]
     
     if optimizer == "adam":
@@ -64,18 +64,20 @@ def get_training_data(train_params):
     else:
         optimizer = optim.SGD(model.parameters(), lr=lr)
     
+    criterion = nn.CrossEntropyLoss()
+    
     meta_data = {
         "train_loss": [],
         "train_accuracy": [],
         "test_loss": [],
         "test_accuracy": [],
         "time_training": [],
+        "epoch": [],
     }
     
     # Training loop
     start_time = time.time()
     
-    print('Start Training')
     
     for epoch in range(num_epochs):
         # Training phase
@@ -122,20 +124,57 @@ def get_training_data(train_params):
         meta_data["time_training"].append(elapsed_time)
         meta_data["test_loss"].append(test_loss)
         meta_data["test_accuracy"].append(test_accuracy)
+        meta_data["epoch"].append(epoch)
         
-    print('Finished Training')
+        rdb_item['in_update'] = meta_data
+        status = 'done' if epoch == num_epochs - 1 else 'running'
+        rdb_item['status'] = status
+        rdb.update(rdb_item)
+        
+    # rd_item.update({
+    #     'status': 'done',
+    #     'output_json': meta_data,
+    # })
+        
+    # print('Finished Training')
     return meta_data
 
+
+# def test_dump_training_data_redis():
+#     import redis
+#     import json
+#     r = redis.StrictRedis(host='localhost', port=6379, db=0)
+#     # meta_data = get_training_data(hyper_params)
+#     fn = "/home/vishc2/tuannm/gui-ml-track/meta_data__2024-03-10_13-44-48.json"
+#     meta_data = json.load(open(fn, 'r'))
+    
+#     # dump meta_data to a json file with indent=2
+#     # import json
+#     # fn_datetime = f"meta_data__{datetime.now():%Y-%m-%d_%H-%M-%S}.json"
+#     # with open(fn_datetime, 'w') as f:
+#     #     json.dump(meta_data, f, indent=2)
+#     # print(f'{fn_datetime} has been saved')
+#     r.set('meta_data', json.dumps(meta_data))
+#     print('meta_data has been saved to redis')
+    
+
 if __name__ == "__main__":
+    pass
     # get parameters from command line
-    args = sys.argv
-    hyper_params["optimizer"] = args[1]
-    hyper_params["learning_rate"] = float(args[2])
-    hyper_params["num_epochs"] = int(args[3])
+    # args = sys.argv
+    # hyper_params["optimizer"] = args[1]
+    # hyper_params["learning_rate"] = float(args[2])
+    # hyper_params["num_epochs"] = int(args[3])
+    
+    # test_dump_training_data_redis()
+    
     # sample command: python train_mnist.py adam 0.001 5
-    meta_data = get_training_data(hyper_params)
+    # meta_data = get_training_data(hyper_params)
+    
     # dump meta_data to a json file with indent=2
-    import json
-    with open('meta_data.json', 'w') as f:
-        json.dump(meta_data, f, indent=2)
-    print('meta_data.json has been saved')
+    # import json
+    # fn_datetime = f"meta_data__{datetime.now():%Y-%m-%d_%H-%M-%S}.json"
+    # with open(fn_datetime, 'w') as f:
+    #     json.dump(meta_data, f, indent=2)
+    # print(f'{fn_datetime} has been saved')
+    
