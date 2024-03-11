@@ -3,9 +3,9 @@ This is GUI Web Application for Machine Learning Experiments tracking and manage
 # Table of Contents
 - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
-  - [Overview](#overview)
+  - [Application Structure](#application-structure)
     - [Database](#database)
-  - [Training MNIST process](#training-mnist-process)
+    - [Training MNIST process](#training-mnist-process)
     - [Backend](#backend)
     - [Worker](#worker)
     - [Frontend](#frontend)
@@ -16,7 +16,9 @@ This is GUI Web Application for Machine Learning Experiments tracking and manage
 ## Introduction
 
 This is a simple web application for managing machine learning experiments. It allows users to define hyperparameters for a machine learning model and run multiple jobs with different hyperparameters. The application displays the progress of currently running jobs and the results of all finished jobs. The experiments can be sorted by a pre-defined metric (e.g. accuracy, run time) for ease of comparison. The application also allows users to resume the UI and add new jobs.
-<!-- % adding a figure 'demo.png' here -->
+
+
+The visualization of the application is shown in the figure below:
 ![overview](overview.png)
 
 <!-- ## Installation
@@ -28,9 +30,12 @@ pip install -r requirements.txt
 streamlit run frontend.py
 ``` -->
 
-## Overview
-GUI-ML is a web application built with Streamlit, a Python library for creating web applications. The application uses Redis as a database to store the job status and experiment results.
-
+## Application Structure
+The main components of the application are:
+- **Database**: Redis, a popular in-memory database, is used to store the job status and experiment results.
+- **Backend**: Flask, a Python web framework, is used to provide a RESTful API for the frontend to interact with the database and the worker.
+- **Worker**: Python script, checks the database for new jobs and runs the machine learning jobs with the specified hyperparameters.
+- **Frontend**: Streamlit, a Python library for creating web applications, is used to provide a user interface for users to define hyperparameters for a machine learning model and run multiple jobs with different hyperparameters.
 
 ### Database
 
