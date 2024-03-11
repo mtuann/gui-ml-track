@@ -2,13 +2,16 @@
 import streamlit as st
 import requests
 import pandas as pd
+import yaml
+
+# Load configuration from config.yaml
+with open('config.yaml', 'r') as f:
+    config = yaml.safe_load(f)['backend']
+URL_API = f"http://{config['host']}:{config['port']}"
+
 
 # add a header "Training MNIST dataset with color and font formatting
 st.title("Training MNIST dataset")
-# st.markdown("## Training MNIST dataset")
-URL_API = "http://localhost:5000"
-
-
 st.write("List of experiments")
 # Display all the running experiments and it status
 exps = requests.get(f"{URL_API}/experiments").json()

@@ -3,13 +3,13 @@ from flask import Flask
 from flask import request
 from redis_db import RedisDB
 
-app = Flask(__name__)
-rdb = RedisDB('redis://localhost:6379', 0)
-
-
 # Load configuration from config.yaml
 with open('config.yaml', 'r') as f:
-    config = yaml.safe_load(f)['backend']
+    config = yaml.safe_load(f)['database']
+
+app = Flask(__name__)
+rdb = RedisDB(f'redis://{config["host"]}:{config["port"]}', config['db'])
+
 
 @app.route('/')
 def hello():

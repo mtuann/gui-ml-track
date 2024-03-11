@@ -3,15 +3,15 @@ This is GUI Web Application for Machine Learning Experiments tracking and manage
 # Table of Contents
 - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Architecture](#architecture)
+  - [Overview](#overview)
     - [Database](#database)
   - [Training MNIST process](#training-mnist-process)
     - [Backend](#backend)
-    - [Frontend](#frontend)
     - [Worker](#worker)
-  - [Development](#development)
+    - [Frontend](#frontend)
+  - [Deployment](#deployment)
+  
+
 
 ## Introduction
 
@@ -19,20 +19,17 @@ This is a simple web application for managing machine learning experiments. It a
 <!-- % adding a figure 'demo.png' here -->
 ![demo](demo.png)
 
-## Installation
+<!-- ## Installation
 To install the application, follow these steps:
 ```bash
 git clone https://github.com/mtuann/gui-ml-track.git
 cd gui-ml
 pip install -r requirements.txt
 streamlit run frontend.py
-```
+``` -->
 
-## Usage
-
-## Architecture
+## Overview
 GUI-ML is a web application built with Streamlit, a Python library for creating web applications. The application uses Redis as a database to store the job status and experiment results. The application uses Celery, a distributed task queue, to run the machine learning jobs with the specified hyperparameters.
-
 
 
 ### Database
@@ -123,7 +120,7 @@ The deault value of the frontend is `http://localhost:8501` by default. You can 
 
 
 
-## Development
+## Deployment
 To run the application in development mode, follow these steps:
 1. Clone the repository
 ```bash
