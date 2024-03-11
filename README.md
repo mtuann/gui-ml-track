@@ -17,7 +17,7 @@ This is GUI Web Application for Machine Learning Experiments tracking and manage
 
 This is a simple web application for managing machine learning experiments. It allows users to define hyperparameters for a machine learning model and run multiple jobs with different hyperparameters. The application displays the progress of currently running jobs and the results of all finished jobs. The experiments can be sorted by a pre-defined metric (e.g. accuracy, run time) for ease of comparison. The application also allows users to resume the UI and add new jobs.
 <!-- % adding a figure 'demo.png' here -->
-![demo](demo.png)
+![overview](overview.png)
 
 <!-- ## Installation
 To install the application, follow these steps:
@@ -107,12 +107,15 @@ After the worker gets a new job, it will run the function `training_and_update` 
 The frontend is built with Streamlit, a Python library for creating web applications. It provides a user interface for users to define hyperparameters for a machine learning model and run multiple jobs with different hyperparameters.
 The code for the frontend is defined in `frontend.py`. The frontend provides the following features:
 - A list of all jobs and its status in the queue database
+![list-jobs](demo-01.png)
 
 - A form to add a new job to the queue database with the specified hyperparameters (e.g. learning rate, number of epochs, optimizer)
+![add-job](demo-02.png)
 
 - A select box for users to choose the experiment to display the results based on the id of the experiment
   - A table to display the results of the selected experiment
   - A plot to display training/ test loss and accuracy of the selected experiment
+![display-results](demo-03.png)
 
 
 
@@ -126,10 +129,13 @@ To run the application in development mode, follow these steps:
 ```bash
 git clone https://github.com/mtuann/gui-ml-track.git
 ```
-2. Install the required dependencies (optional)
+2. Install the required dependencies (optional) and start the Redis server
 ```bash
 conda env create -f environment.yml
 source activate gui
+
+sudo apt-get install redis-server
+redis-server
 ```
 3. Start the backend
 ```bash

@@ -69,10 +69,8 @@ if st.button("Start Training"):
     exps = requests.get(f"{URL_API}/experiments").json()
     df_exps = pd.DataFrame(exps)
     # display is in the form of a table (id, status)
-    table_exps.table(df_exps)
-    # check interaction with table_exps
-    if st.checkbox("Show raw data"):
-        st.write(df_exps)
+    table_exps.data = df_exps
+    
 
 # adding horizontal line
 st.write("---")
