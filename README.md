@@ -29,7 +29,7 @@ streamlit run frontend.py
 ``` -->
 
 ## Overview
-GUI-ML is a web application built with Streamlit, a Python library for creating web applications. The application uses Redis as a database to store the job status and experiment results. The application uses Celery, a distributed task queue, to run the machine learning jobs with the specified hyperparameters.
+GUI-ML is a web application built with Streamlit, a Python library for creating web applications. The application uses Redis as a database to store the job status and experiment results.
 
 
 ### Database
