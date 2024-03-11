@@ -2,7 +2,7 @@ import os
 import json
 import uuid
 import redis
-
+from datetime import datetime
 
 class RedisDB:
 
@@ -46,26 +46,25 @@ class RedisDB:
     
     def get_all_iid_status(self):
         keys = self.db.keys()
-        print(keys)
+        # print(keys)
         out = {
             "iid": [],
             "status": [],
             "hyper_params": [],
+            "time_added" : [],
         }
         for key in keys:
             key = key.decode('utf-8')
             if key.startswith('queue:'):
                 continue
-            # out.append(self.get_iid_status(key))
+            
             data_iid = self.get_iid_status(key)
             if "status" in data_iid and "in_update" in data_iid:
                 out["iid"].append(key)
                 out["status"].append(data_iid['status'])
                 out["hyper_params"].append(data_iid['hyper_params'])
-            # if "in_update" in 
+                out["time_added"].append(data_iid.get('time_added', ''))
             
-            # out["iid"].append(key)
-            # out["status"].append(self.get_iid_status(key)['status'])
         return out
 
     def clear_queue(self):
@@ -80,7 +79,7 @@ class RedisDB:
             'iid': iid, 
             'hyper_params': hyper_params,
             'status': 'waiting',
-            # 'output_json': {},
             'in_update': [],
+            "time_added": f"{datetime.now()}"
         }
         return data
